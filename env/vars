@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+# "THE BEER-WARE LICENSE" (Revision 42):
+# <ctxnop@gmail.com> wrote this file. As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return. ctxnop
+
+# If 'vim' is available, set it as default editor
+if [ -e "/usr/bin/vim" ]; then
+    export EDITOR="/usr/bin/vim"
+fi
+
+# If 'less' is available, set it as default pager
+if [ -e "/usr/bin/less" ]; then
+    export PAGER="/usr/bin/less"
+fi
+
+# Set history settings
+export HISTFILE="${HOME}/.histfile"
+export HISTSIZE=10000
+export SAVEHIST=1000
+
+# Add the ~/bin folder to the path if it exists and not already in it.
+if [ "$(id -u)" -ge "1000" ] &&
+   [ -d "${HOME}/bin" ] &&
+   [ "$( echo "${PATH}" | grep -oc "${HOME}/bin" )" -eq "0" ]; then
+    export PATH="${HOME}/bin:${PATH}"
+fi
