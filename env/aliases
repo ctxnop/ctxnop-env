@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+
+# "THE BEER-WARE LICENSE" (Revision 42):
+# <ctxnop@gmail.com> wrote this file. As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return. ctxnop
+
+# Enable color and long output for ls/ll and use exa if available
+if [ -e "/usr/bin/exa" ]; then
+    alias ls="exa --color=auto"
+    alias ll="exa --color=auto -lah@ --group-directories-first --git"
+else
+    alias ls="ls --color=auto"
+    alias ll="ls --color=auto -lah"
+fi
+
+# Use bat if available
+if [ -e "/usr/bin/bat" ]; then
+    alias cat="bat --theme 'Visual Studio Dark+'"
+fi
+
+# Enable color for grep
+alias grep="grep --color=auto"
+
+# Keep special chars in less (keep color when piped)
+alias less="less -R"
