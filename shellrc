@@ -18,8 +18,9 @@ export NOP_HOME="${XDG_CACHE_HOME:-${HOME}}"
 [ -r "${NOP_HOME}/.ctxnop-env-config" ] && . "${NOP_HOME}/.ctxnop-env-config"
 
 # Set default values for useful pathes
-export NOP_CACHE="${NOP_CACHE:-${NOP_HOME}/.cache}"
-export NOP_SHARE="${NOP_SHARE:-${NOP_HOME}/.local/share/ctxnop-env}"
+export NOP_CACHE="${NOP_CACHE:-"${NOP_HOME}/.cache"}"
+export NOP_SHARE="${NOP_SHARE:-"${NOP_HOME}/.local/share/ctxnop-env"}"
+export ZSH_P10K_THEME="${ZSH_P10K_THEME:-"/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"}"
 
 # Loads the correct shell configuration
 SHELLNAME="$( LANG=C ps -p "${$}" | tail -1 | grep -Po "[^ ]+$" )"

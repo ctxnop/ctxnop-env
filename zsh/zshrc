@@ -58,8 +58,10 @@ autoload -Uz compinit
 compinit
 
 # Prompt
-. "/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
-[ -r "${NOP_SHARE}/zsh/p10k.zsh" ] && . "${NOP_SHARE}/zsh/p10k.zsh"
+if [ -r "${ZSH_P10K_THEME}" ]; then
+	. "${ZSH_P10K_THEME}"
+	[ -r "${NOP_SHARE}/zsh/p10k.zsh" ] && . "${NOP_SHARE}/zsh/p10k.zsh"
+fi
 
 # Dynamic syntax highlighting of the command line
 if [ -r "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
