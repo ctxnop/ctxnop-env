@@ -16,13 +16,21 @@ if [ -e "/usr/bin/less" ]; then
 fi
 
 # Set history settings
-export HISTFILE="${HOME}/.histfile"
+export HISTFILE="${NOP_HOME}/.histfile"
 export HISTSIZE=10000
 export SAVEHIST=1000
 
-# Add the ~/bin folder to the path if it exists and not already in it.
-if [ "$(id -u)" -ge "1000" ] &&
-   [ -d "${HOME}/bin" ] &&
-   [ "$( echo "${PATH}" | grep -oc "${HOME}/bin" )" -eq "0" ]; then
-    export PATH="${HOME}/bin:${PATH}"
+# If the current user is a standard user
+if [ "$(id -u)" -ge "1000" ]; then
+    # Add the $NOP_SHARE/bin folder to the path.
+    if [ -d "${NOP_SHARE}/bin" ] &&
+       [ "$( echo "${PATH}" | grep -oc "${NOP_SHARE}/bin" )" -eq "0" ]; then
+        export PATH="${NOP_SHARE}/bin:${PATH}"
+    fi
+
+    # Add the $NOP_HOME/bin folder to the path.
+    if [ -d "${NOP_HOME}/bin" ] &&
+       [ "$( echo "${PATH}" | grep -oc "${NOP_HOME}/bin" )" -eq "0" ]; then
+        export PATH="${NOP_HOME}/bin:${PATH}"
+    fi
 fi

@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+# This file should be almost empty. It just has to detect if the environment is
+# in interactive mode and, if so, load a configuration file that is defining
+# the different needed path. Then it should load the real environment file to
+# load.
+
+# Log levels: emerg, alert, crit, err, warning, notice, info, debug
+
+# If in interactive mode, exit now to prevent useless loading of configuration
+[ ! "${-#*i}" != "${-}" ] && exit 0
+
+# Set the "home" directory
+export NOP_HOME="${XDG_CACHE_HOME:-${HOME}}"
+
+# shellcheck source=/dev/null
+# Load custom pathes if exists
+[ -r "${NOP_HOME}/.ctxnop-env-config" ] && . "${NOP_HOME}/.ctxnop-env-config"
+
+# Set default values for useful pathes
+export NOP_CACHE="${NOP_CACHE:-${NOP_HOME}/.cache}"
+export NOP_SHARE="${NOP_SHARE:-${NOP_HOME}/.local/share/ctxnop-env}"
+
+# Loads the correct shell configuration
+SHELLNAME="$( LANG=C ps -p "${$}" | tail -1 | grep -Po "[^ ]+$" )"
+if [ -r "${NOP_SHARE}/${SHELLNAME}/${SHELLNAME}rc" ]; then
+    # shellcheck source=/dev/null
+    . "${NOP_SHARE}/${SHELLNAME}/${SHELLNAME}rc"
+    echo "Loading the shell configuration file: ${NOP_SHARE}/${SHELLNAME}/${SHELLNAME}rc" | systemd-cat -t ctxnop-env -p info
+else
+    echo "Running shell not supported: ${SHELLNAME}" | systemd-cat -t ctxnop-env -p err
+fi
