@@ -30,3 +30,11 @@ if [ -r "${NOP_SHARE}/${SHELLNAME}/${SHELLNAME}rc" ]; then
 else
     echo "Running shell not supported: ${SHELLNAME}" | systemd-cat -t ctxnop-env -p err
 fi
+
+# shellcheck disable=SC1091
+# Load common environment variables
+[ -r "${NOP_SHARE}/env/vars" ] && . "${NOP_SHARE}/env/vars"
+
+# shellcheck disable=SC1091
+# Load aliases
+[ -r "${NOP_SHARE}/env/aliases" ] && . "${NOP_SHARE}/env/aliases"

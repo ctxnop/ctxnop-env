@@ -8,12 +8,6 @@ setopt nomatch
 setopt notify
 unsetopt beep
 
-# Load common environment variables
-[ -r "${NOP_SHARE}/env/vars" ] && . "${NOP_SHARE}/env/vars"
-
-# Load aliases
-[ -r "${NOP_SHARE}/env/aliases" ] && . "${NOP_SHARE}/env/aliases"
-
 # Keyboard configuration
 typeset -g -A key
 
